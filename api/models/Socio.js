@@ -7,22 +7,36 @@
 
 module.exports = {
   attributes: {
-    numeroSocio: {
-      type: 'number',
-      unique: 'true'
+    dni: {
+      type: 'string'
     },
-    // cuotas: {
-    //   collection: 'cuota',
-    //   via: 'socio'
-    // },
-    // periodoAfiliacion: Periodo;
-    inicioPeriodo: {
-      type: 'ref',
-      columnType: 'datetime'
+    apellido: {
+      type: 'string'
     },
-    finPeriodo: {
+    nombre: {
+      type: 'string'
+    },
+    fechaNacimiento: {
       type: 'ref',
-      columnType: 'datetime'
+      columnType: 'datetime',
+    },
+    domicilio: {
+      type: 'string'
+    },
+    email: {
+      type: 'string',
+      isEmail: true,
+      unique: true
+    },
+    telefono: {
+      type: 'string'
+    },
+    cuotas: {
+      collection: 'cuota',
+      via: 'socio',
+    },
+    periodoAfiliacion: {
+      model: 'periodo',
     }
   }
 };

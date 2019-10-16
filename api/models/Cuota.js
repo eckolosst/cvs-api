@@ -1,5 +1,5 @@
 /**
- * Terreno.js
+ * Cuota.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -7,26 +7,26 @@
 
 module.exports = {
   attributes: {
-    largo: {
+    monto: {
       type: 'number'
     },
-    frente: {
+    fechaVencimiento: {
+      type: 'ref',
+      columnType: 'datetime'
+    },
+    fechaEmision: {
+      type: 'ref',
+      columnType: 'datetime'
+    },
+    saldoPendiente: {
       type: 'number'
-    },
-    direccion: {
-      type: 'string'
-    },
-    valor: {
-      type: 'number'
-    },
-    matricula: {
-      type: 'string'
     },
     estado: {
-      model: 'estadoTerreno'
+      type: 'string',
+      isIn: ['cancelada', 'noCancelada']
     },
-    loteo: {
-      model: 'loteo'
+    socio: {
+      model: 'socio',
     }
   }
 };

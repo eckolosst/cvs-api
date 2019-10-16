@@ -1,5 +1,5 @@
 /**
- * Venta.js
+ * ReciboSueldo.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -7,28 +7,23 @@
 
 module.exports = {
   attributes: {
-    socio: {
-      model: 'socio',
-      unique: 'true'
-    },
-    estados: {
-      model: 'estadobeneficio',
-      // via: 'venta'
-    },
-    garante: {
-      model: 'garante'
-    },
-    pagoInicial: {
+    sueldoNeto: {
       type: 'number'
     },
-    terreno: {
-      model: 'terreno'
+    sueldoBruto: {
+      type: 'number'
+    },
+    cuil: {
+      type: 'string'
+    },
+    persona: {
+      model: 'garante'
     },
     solicitudTerreno: {
       model: 'solicitudterreno'
     },
-    contrato: {
-      model: 'contrato'
+    solicitudPrestamo: {
+      model: 'solicitudprestamo'
     }
   }
 };

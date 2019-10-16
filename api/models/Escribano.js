@@ -1,5 +1,5 @@
 /**
- * Garante.js
+ * Escribano.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -29,6 +29,12 @@ module.exports = {
       unique: true
     },
     telefono: {
+      type: 'string'
+    },
+    matricula: {
+      type: 'string'
+    },
+    estudio: {
       type: 'string'
     }
   }

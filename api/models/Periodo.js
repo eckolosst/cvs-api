@@ -1,5 +1,5 @@
 /**
- * EstadoBeneficio.js
+ * Periodo.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -7,7 +7,11 @@
 
 module.exports = {
   attributes: {
-    fecha: {
+    fechaInicio: {
+      type: 'ref',
+      columnType: 'datetime'
+    },
+    fechaFin: {
       type: 'ref',
       columnType: 'datetime'
     }

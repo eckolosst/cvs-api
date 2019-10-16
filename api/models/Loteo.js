@@ -1,5 +1,5 @@
 /**
- * Terreno.js
+ * Loteo.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -7,26 +7,22 @@
 
 module.exports = {
   attributes: {
-    largo: {
-      type: 'number'
-    },
-    frente: {
-      type: 'number'
-    },
-    direccion: {
+    ubicacion: {
       type: 'string'
     },
-    valor: {
-      type: 'number'
-    },
-    matricula: {
+    nombre: {
       type: 'string'
     },
-    estado: {
-      model: 'estadoTerreno'
+    terrenosDisponibles: {
+      type: 'number'
     },
-    loteo: {
-      model: 'loteo'
+    terrenos: {
+      collection: 'terreno',
+      via: 'loteo'
+    },
+    duenios: {
+      model: 'duenio',
+      // via: 'duenio'
     }
   }
 };

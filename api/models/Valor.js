@@ -1,5 +1,5 @@
 /**
- * Prestamo.js
+ * Valor.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -7,22 +7,23 @@
 
 module.exports = {
   attributes: {
-    socio: {
-      model: 'socio',
-      unique: 'true'
+    sueldoNetoMinimo: {
+      type: 'number'
     },
-    estados: {
-      model: 'estadobeneficio',
-      // via: 'prestamo'
+    valorMaximoPrestamo: {
+      type: 'number'
     },
-    garante: {
-      model: 'garante'
+    valorMaximoTerreno: {
+      type: 'number'
+    },
+    numeroInteres: {
+      type: 'number'
     },
     monto: {
       type: 'number'
     },
-    solicitudPrestamo: {
-      model: 'solicitudprestamo'
+    aplicacion: {
+      type: 'string'
     }
   }
 };
