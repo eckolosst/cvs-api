@@ -49,7 +49,7 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
     adapter: 'sails-mysql',
-    url: 'mysql://root:l456p888@localhost:3306/mutualSM',
+    url: 'mysql://ecko:l456p888@localhost:3306/mutualSM',
 
   },
 

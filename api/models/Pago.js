@@ -13,6 +13,9 @@ module.exports = {
     },
     monto: {
       type: 'number'
+    },
+    cuota: {
+      model: 'Cuota'
     }
   }
 };

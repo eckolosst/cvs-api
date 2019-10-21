@@ -12,8 +12,8 @@ module.exports = {
       unique: 'true'
     },
     estados: {
-      model: 'estadobeneficio',
-      // via: 'venta'
+      collection: 'estadoBeneficio',
+      via: 'venta'
     },
     garante: {
       model: 'garante'
@@ -29,6 +29,9 @@ module.exports = {
     },
     contrato: {
       model: 'contrato'
+    },
+    referencia: {
+      model: 'TabladeReferencias'
     }
   }
 };

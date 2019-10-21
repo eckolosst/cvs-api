@@ -14,6 +14,9 @@ module.exports = {
     fechaFin: {
       type: 'ref',
       columnType: 'datetime'
+    },
+    socio: {
+      model: 'socio'
     }
   }
 };

@@ -26,7 +26,13 @@ module.exports = {
       isIn: ['cancelada', 'noCancelada']
     },
     socio: {
-      model: 'socio',
+      model: 'socio'
+    },
+    plan: {
+      model: 'PlanDeCuotas'
+    },
+    referencia: {
+      model: 'TabladeReferencias'
     }
   }
 };

@@ -16,8 +16,11 @@ module.exports = {
     cuil: {
       type: 'string'
     },
-    persona: {
+    garante: {
       model: 'garante'
+    },
+    socio: {
+      model: 'socio'
     },
     solicitudTerreno: {
       model: 'solicitudterreno'

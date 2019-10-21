@@ -36,7 +36,8 @@ module.exports = {
       via: 'socio'
     },
     periodoAfiliacion: {
-      model: 'periodo'
+      collection: 'periodo',
+      via: 'socio'
     }
   },
 };

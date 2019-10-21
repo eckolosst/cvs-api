@@ -15,6 +15,10 @@ module.exports = {
     },
     tasa: {
       type: 'number'
+    },
+    cuotas: {
+      collection: 'cuota',
+      via: 'plan'
     }
   }
 };

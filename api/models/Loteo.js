@@ -20,9 +20,8 @@ module.exports = {
       collection: 'terreno',
       via: 'loteo'
     },
-    duenios: {
+    duenio: {
       model: 'duenio',
-      // via: 'duenio'
     }
   }
 };
