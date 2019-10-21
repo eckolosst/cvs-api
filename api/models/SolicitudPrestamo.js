@@ -16,7 +16,8 @@ module.exports = {
       columnType: 'datetime'
     },
     resultado: {
-      type: 'string'
+      type: 'string',
+      isIn: ['aprobada', 'desaprobada', 'pendiente']
     },
     socio: {
       model: 'socio'
