@@ -18,7 +18,7 @@ module.exports = {
     },
     fechaNacimiento: {
       type: 'ref',
-      columnType: 'datetime',
+      columnType: 'datetime'
     },
     domicilio: {
       type: 'string'
@@ -33,10 +33,10 @@ module.exports = {
     },
     cuotas: {
       collection: 'cuota',
-      via: 'socio',
+      via: 'socio'
     },
     periodoAfiliacion: {
-      model: 'periodo',
+      model: 'periodo'
     }
-  }
+  },
 };
