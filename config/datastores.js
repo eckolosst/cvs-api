@@ -49,8 +49,8 @@ module.exports.datastores = {
     // url: 'mysql://ecko:l456p888@localhost:3306/mutualSM',
     host: 'localhost',
     port: 3306,
-    user: 'root',
-    password: 'l456p888',
+    user: 'agus',
+    password: '1',
     database: 'mutualSM'
   }
 };
