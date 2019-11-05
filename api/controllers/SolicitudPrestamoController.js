@@ -11,33 +11,58 @@ module.exports = {
    */
   create: async (req, res) => {
     const idSocio = req.param('idSocio');
+    const garante = req.param('garante');
     const socio = await Socio.findOne({ id: idSocio });
     if (socio) {
       const auxDate = new Date();
       auxDate.setMonth(auxDate.getMonth() - 12);
+      // TODO: Verificación de la fecha de afiliación del socio en vez de fecha de cumpleaños
       if (socio.fechaNacimiento > auxDate) {
-        let query = `SELECT id, socio
-                        FROM SolicitudTerreno as t INNER JOIN SolicitudPrestamo as p
-                        WHERE t.socio=${idSocio} OR p.socio=${idSocio}`;
+        let query = `SELECT t.id, p.id
+                        FROM SolicitudTerreno as t JOIN SolicitudPrestamo as p
+                        WHERE (t.socio=${idSocio} AND t.resultado='pendiente')
+                        OR (p.socio=${idSocio} AND p.resultado='pendiente')`;
         const solicitudes = await sails.sendNativeQuery(query);
-        //TODO: Terminar consulta que trae un beneficio que el socio esté pagando aún, es decir no tiene estado saldado
-        query = `SELECT id, socio
-                    FROM Prestamo as p INNER JOIN Venta as v
-                    WHERE (t.socio=${idSocio} AND ) OR (v.socio=${idSocio})`;
-        const beneficios = await sails.sendNativeQuery(query);
-        if (solicitudes.length === 0 || beneficios.length === 0) {
-          // TODO: Verificar que datos entran al crear la solicitud
-          // TODO: Tabién deberian controlarse los datos del garante. Si es un garante nuevo, agregarlo
+
+        query = `SELECT p.id
+                    FROM Prestamo as p
+                    INNER JOIN EstadoBeneficio e ON p.id=e.prestamo
+                    WHERE p.socio=${idSocio} AND e.estado='pendiente'`;
+        const prestamos = await sails.sendNativeQuery(query);
+
+        query = `SELECT v.id
+                    FROM Venta as v
+                    INNER JOIN EstadoBeneficio e ON v.id=e.prestamo
+                    WHERE v.socio=${idSocio} AND e.estado='pendiente'`;
+        const ventas = await sails.sendNativeQuery(query);
+        if (solicitudes.length === 0) {
+          if (prestamos.length === 0 || ventas.length === 0) {
+            let g = await Garante.findOne({ dni: garante.dni });
+            if (!g) {
+              // TODO: Verificar e Insertar los recibos de sueldo
+              g = await Garante.create({ garante });
+            }
+
+          } else {
+            return res
+              .status(400)
+              .send('El socio posee un beneficio pendiente.');
+          }
         } else {
-          return res.status(200).send('El socio posee un beneficio o solicitud pendiente.');
+          return res
+            .status(400)
+            .send('El socio posee una solicitud pendiente.');
         }
       } else {
-        return res.status(200).send('El socio no posee la antigüedad suficiente.');
+        return res
+          .status(400)
+          .send('El socio no posee la antigüedad suficiente.');
       }
     } else {
       return res.status(404).send('Socio no encontrado.');
     }
   },
+
   aprobarSolicitud: (req, res) => {
     var solicitudId = req.param('_id');
 
@@ -56,6 +81,7 @@ module.exports = {
 
     return res.send('succes');
   },
+
   rechazarSolicitud: (req, res) => {
     var solicitudId = req.param('_id');
 
