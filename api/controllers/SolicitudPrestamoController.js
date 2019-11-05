@@ -10,53 +10,64 @@ module.exports = {
    * día. Además el socio no debe tener otra solicitud vigente. No debe adeudar cuotas de afiliación;
    */
   create: async (req, res) => {
-    const idSocio = req.param('idSocio');
-    const garante = req.param('garante');
+    const idSocio = req.body.socio;
+    const garante = req.body.garante;
+    let recibos = req.body.recibos;
+    const monto = req.body.monto;
+    const resultado = req.body.resultado;
     const socio = await Socio.findOne({ id: idSocio });
     if (socio) {
-      const auxDate = new Date();
+      let auxDate = new Date();
       auxDate.setMonth(auxDate.getMonth() - 12);
-      // TODO: Verificación de la fecha de afiliación del socio en vez de fecha de cumpleaños
-      if (socio.fechaNacimiento > auxDate) {
+      const periodos = await Periodo.find({ socio: idSocio });
+      // Verifico si el último periodo de afiliación tiene fecha de inicio de hace más de un añó
+      if (periodos[periodos.length - 1].fechaInicio >= auxDate) {
+        // Busco solicitudes o beneficios pendientes del socio
         let query = `SELECT t.id, p.id
-                        FROM SolicitudTerreno as t JOIN SolicitudPrestamo as p
+                        FROM solicitudterreno as t JOIN solicitudprestamo as p
                         WHERE (t.socio=${idSocio} AND t.resultado='pendiente')
                         OR (p.socio=${idSocio} AND p.resultado='pendiente')`;
         const solicitudes = await sails.sendNativeQuery(query);
 
         query = `SELECT p.id
-                    FROM Prestamo as p
-                    INNER JOIN EstadoBeneficio e ON p.id=e.prestamo
+                    FROM prestamo as p
+                    INNER JOIN estadobeneficio e ON p.id=e.prestamo
                     WHERE p.socio=${idSocio} AND e.estado='pendiente'`;
         const prestamos = await sails.sendNativeQuery(query);
 
         query = `SELECT v.id
-                    FROM Venta as v
-                    INNER JOIN EstadoBeneficio e ON v.id=e.prestamo
+                    FROM venta as v
+                    INNER JOIN estadobeneficio e ON v.id=e.prestamo
                     WHERE v.socio=${idSocio} AND e.estado='pendiente'`;
         const ventas = await sails.sendNativeQuery(query);
-        if (solicitudes.length === 0) {
-          if (prestamos.length === 0 || ventas.length === 0) {
+
+        if (solicitudes.rows.length === 0) {
+          if (prestamos.rows.length === 0 || ventas.rows.length === 0) {
             let g = await Garante.findOne({ dni: garante.dni });
             if (!g) {
+              g = await Garante.create(garante).fetch();
               // TODO: Verificar e Insertar los recibos de sueldo
-              g = await Garante.create({ garante });
+              recibos.garante = g.id;
+              await ReciboSueldo.create(recibos);
             }
-
+            const solicitud = await SolicitudPrestamo.create({
+              fechaPeticion: new Date(),
+              fechaAprobacionRechazo: null,
+              resultado,
+              socio: idSocio,
+              garante: g.id,
+              recibos: [],
+              monto
+            });
+            return res.ok(solicitud);
           } else {
-            return res
-              .status(400)
-              .send('El socio posee un beneficio pendiente.');
+            return res.status(400).send('El socio posee un beneficio pendiente.');
           }
         } else {
-          return res
-            .status(400)
-            .send('El socio posee una solicitud pendiente.');
+          return res.status(400).send('El socio posee una solicitud pendiente.');
         }
       } else {
-        return res
-          .status(400)
-          .send('El socio no posee la antigüedad suficiente.');
+        return res.status(400).send('El socio no posee la antigüedad suficiente.');
       }
     } else {
       return res.status(404).send('Socio no encontrado.');

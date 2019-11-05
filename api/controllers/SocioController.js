@@ -11,25 +11,12 @@ module.exports = {
   },
 
   create: async (req, res) => {
-    const dni = req.param('dni');
-    const nombre = req.param('nombre');
-    const apellido = req.param('apellido');
-    const fechaNacimiento = req.param('fechaNacimiento');
-    const domicilio = req.param('domicilio');
-    const email = req.param('email');
-    const telefono = req.param('telefono');
+    let dataSocio = req.body;
+    sails.log.info(req.body.nombre);
     try {
       const period = await Periodo.create({ fechaInicio: new Date() }).fetch();
-      let newSocio = await Socio.create({
-        dni,
-        nombre,
-        apellido,
-        fechaNacimiento,
-        domicilio,
-        email,
-        telefono,
-        periodoAfiliacion: period.id
-      }).fetch();
+      dataSocio.periodoAfiliacion = period.id;
+      let newSocio = await Socio.create(dataSocio).fetch();
       return res.ok(newSocio);
     } catch (err) {
       return res.serverError(err);

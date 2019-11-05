@@ -19,7 +19,8 @@ module.exports.routes = {
    ***************************************************************************/
 
   '/': { view: 'pages/homepage' },
-  'GET /socio/getAptoPrestamo': { controller: 'Socio', action: 'getSociosAptosPrestamos' }
+  'GET /socio/getAptoPrestamo': { controller: 'Socio', action: 'getSociosAptosPrestamos' },
+  'POST /solicitudPrestamo': { controller: 'SolicitudPrestamo', action: 'create' }
 
   /***************************************************************************
    *                                                                          *
