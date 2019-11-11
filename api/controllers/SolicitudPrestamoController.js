@@ -48,6 +48,9 @@ module.exports = {
             try {
               let g = await Garante.findOne({ dni: garante.dni });
               if (!g) {
+                if (!recibos) {
+                  return res.status(400).send('No se encontró garante con dni: ' + garante.dni);
+                }
                 g = await Garante.create(garante).fetch();
                 // TODO: Verificar e Insertar los recibos de sueldo
                 recibos.garante = g.id;
