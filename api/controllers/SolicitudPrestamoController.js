@@ -12,6 +12,8 @@ module.exports = {
   create: async (req, res) => {
     const idSocio = req.body.socio;
     const garante = req.body.garante;
+    garante.dni = garante.dni.toString();
+    garante.telefono = garante.telefono.toString();
     let recibos = req.body.recibos;
     const monto = req.body.monto;
     const resultado = req.body.resultado;
@@ -43,23 +45,30 @@ module.exports = {
 
         if (solicitudes.rows.length === 0) {
           if (prestamos.rows.length === 0 || ventas.rows.length === 0) {
-            let g = await Garante.findOne({ dni: garante.dni });
-            if (!g) {
-              g = await Garante.create(garante).fetch();
-              // TODO: Verificar e Insertar los recibos de sueldo
-              recibos.garante = g.id;
-              await ReciboSueldo.create(recibos);
+            try {
+              let g = await Garante.findOne({ dni: garante.dni });
+              if (!g) {
+                if (!recibos) {
+                  return res.status(400).send('No se encontró garante con dni: ' + garante.dni);
+                }
+                g = await Garante.create(garante).fetch();
+                // TODO: Verificar e Insertar los recibos de sueldo
+                recibos.garante = g.id;
+                await ReciboSueldo.create(recibos);
+              }
+              const solicitud = await SolicitudPrestamo.create({
+                fechaPeticion: new Date(),
+                fechaAprobacionRechazo: null,
+                resultado,
+                socio: idSocio,
+                garante: g.id,
+                recibos: [],
+                monto
+              }).fetch();
+              return res.status(200).json(solicitud);
+            } catch (err) {
+              return res.serverError(err);
             }
-            const solicitud = await SolicitudPrestamo.create({
-              fechaPeticion: new Date(),
-              fechaAprobacionRechazo: null,
-              resultado,
-              socio: idSocio,
-              garante: g.id,
-              recibos: [],
-              monto
-            });
-            return res.ok(solicitud);
           } else {
             return res.status(400).send('El socio posee un beneficio pendiente.');
           }
