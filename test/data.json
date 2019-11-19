@@ -1,0 +1,59 @@
+/* SOLICITUD PRESTAMO */
+{
+  "fechaPeticion": "2019-11-19T15:49:41.684Z",
+  "resultado": "pendiente",
+  "socio": 2,
+  "monto": 14000,
+  "garante": {
+    "dni": 24123345,
+    "apellido": "Garante",
+    "nombre": "Nuevo",
+    "fechaNacimiento": "1974-07-11T03:00:00.000Z",
+    "domicilio": "JM alvarez 123",
+    "email": "test@garante.com",
+    "telefono": 498123876
+  },
+  "recibos": {
+    "sueldoNeto": 50000,
+    "sueldoBruto": 55000,
+    "cuil": "123456"
+  }
+}
+
+/* VALOR */
+{
+  "sueldoNetoMinimo": 50000,
+  "valorMaximoPrestamo": 25000,
+  "valorMaximoTerreno": 0,
+  "numeroInteres": 15,
+  "monto": 0,
+  "aplicacion": "prestamo"
+},
+{
+  "sueldoNetoMinimo": 45000,
+  "valorMaximoPrestamo": 12000,
+  "valorMaximoTerreno": 0,
+  "numeroInteres": 13,
+  "monto": 0,
+  "aplicacion": "prestamo"
+}
+
+/* RECIBO DE SOCIO id=2 */
+{
+  "sueldoNeto": 50000,
+  "sueldoBruto": 55000,
+  "cuil": "654987",
+  "garante": null,
+  "socio": {
+      "id": 2,
+      "dni": "90.621.035",
+      "apellido": "Rubinsztein",
+      "nombre": "Marissa",
+      "fechaNacimiento": "2018-11-13T03:00:00.000Z",
+      "domicilio": "4 Lakewood Gardens Crossing",
+      "email": "mrubinsztein1@webmd.com",
+      "telefono": "58702"
+  },
+  "solicitudTerreno": null,
+  "solicitudPrestamo": null
+}
