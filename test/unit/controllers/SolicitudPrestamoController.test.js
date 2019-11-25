@@ -86,6 +86,87 @@ describe('SolicitudPrestamoController', () => {
       .catch(done);
   });
 
+  it('should fail to post SolicitudPrestamo, user not found', done => {
+    var agent = supertest.agent(sails.hooks.http.app);
+    agent
+      .post('/solicitudPrestamo')
+      .set('Accept', 'application/json')
+      .send({
+        fechaPeticion: '2019-11-19T15:49:41.684Z',
+        resultado: 'pendiente',
+        socio: 987654321,
+        monto: 14000,
+        garante: {
+          dni: 24123345,
+          apellido: 'Garante',
+          nombre: 'Nuevo',
+          fechaNacimiento: '1974-07-11T03:00:00.000Z',
+          domicilio: 'JM alvarez 123',
+          email: 'test@garante.com',
+          telefono: 498123876
+        },
+        recibos: {
+          sueldoNeto: 50000,
+          sueldoBruto: 55000,
+          cuil: '123456'
+        }
+      })
+      .expect('Content-Type', /text\/html/)
+      .expect(404)
+      .end((err, result) => {
+        if (err) {
+          done(err);
+        } else {
+          result.body.should.be.an('object');
+          done();
+        }
+      });
+  });
+
+  it('should fail to post SolicitudPrestamo, invalid amount', done => {
+    Socio.findOne({ dni: '90.621.035' })
+      .then(socio => {
+        // sails.log.info(socio);
+        var agent = supertest.agent(sails.hooks.http.app);
+        agent
+          .post('/solicitudPrestamo')
+          .set('Accept', 'application/json')
+          .send({
+            fechaPeticion: '2019-11-19T15:49:41.684Z',
+            resultado: 'pendiente',
+            socio: socio.id,
+            monto: 9999999,
+            garante: {
+              dni: 24123345,
+              apellido: 'Garante',
+              nombre: 'Nuevo',
+              fechaNacimiento: '1974-07-11T03:00:00.000Z',
+              domicilio: 'JM alvarez 123',
+              email: 'test@garante.com',
+              telefono: 498123876
+            },
+            recibos: {
+              sueldoNeto: 50000,
+              sueldoBruto: 55000,
+              cuil: '123456'
+            }
+          })
+          // .expect('Content-Type', /text\/html/)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end((err, result) => {
+            if (err) {
+              done(err);
+            } else {
+              /* Se debería hacer otros 2 get para traer al garante y el recibo de sueldo y controlarlos */
+              result.body.should.be.an('object');
+              done();
+            }
+          });
+      })
+      .catch(done);
+  });
+
   /* it('should get all SolicitudPrestamo items', done => {});
 
   it('should delete a SolicitudPrestamo', done => {}); */
