@@ -26,7 +26,8 @@ module.exports = {
     email: {
       type: 'string',
       isEmail: true,
-      unique: true
+      unique: true,
+      required: true
     },
     telefono: {
       type: 'string'
