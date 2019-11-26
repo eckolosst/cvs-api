@@ -1,3 +1,81 @@
+/* SOCIOS */
+{
+  "dni": "91.843.346",
+  "nombre": "Solomon",
+  "apellido": "Deare",
+  "fechaNacimiento": "2018/9/10",
+  "domicilio": "8 Arkansas Plaza",
+  "email": "sdeare2@netlog.com",
+  "telefono": "53360"
+},
+
+{
+  "dni": "90.621.035",
+  "nombre": "Marissa",
+  "apellido": "Rubinsztein",
+  "fechaNacimiento": "2018/11/13",
+  "domicilio": "4 Lakewood Gardens Crossing",
+  "email": "mrubinsztein1@webmd.com",
+  "telefono": "58702"
+},
+
+{
+  "dni": "43.053.460",
+  "nombre": "Brade",
+  "apellido": "Esp",
+  "fechaNacimiento": "2018/12/20",
+  "domicilio": "95 Continental Way",
+  "email": "besp0@buzzfeed.com",
+  "telefono": "56399"
+}
+
+/* RECIBOS SOCIOS */
+{
+  "sueldoNeto": 55000,
+  "sueldoBruto": 60000,
+  "cuil": "654987",
+  "garante": null,
+  "socio": 1,
+  "solicitudTerreno": null,
+  "solicitudPrestamo": null
+},
+{
+  "sueldoNeto": 45000,
+  "sueldoBruto": 40000,
+  "cuil": "654923",
+  "garante": null,
+  "socio": 2,
+  "solicitudTerreno": null,
+  "solicitudPrestamo": null
+},
+{
+  "sueldoNeto": 120000,
+  "sueldoBruto": 118000,
+  "cuil": "123456",
+  "garante": null,
+  "socio": 3,
+  "solicitudTerreno": null,
+  "solicitudPrestamo": null
+}
+
+/* VALORES */
+{
+  "sueldoNetoMinimo": 50000,
+  "valorMaximoPrestamo": 25000,
+  "valorMaximoTerreno": 0,
+  "numeroInteres": 15,
+  "monto": 0,
+  "aplicacion": "prestamo"
+},
+{
+  "sueldoNetoMinimo": 40000,
+  "valorMaximoPrestamo": 12000,
+  "valorMaximoTerreno": 0,
+  "numeroInteres": 13,
+  "monto": 0,
+  "aplicacion": "prestamo"
+}
+
 /* SOLICITUD PRESTAMO */
 {
   "fechaPeticion": "2019-11-19T15:49:41.684Z",

@@ -11,25 +11,25 @@ before(function(done) {
   sails.lift(
     {
       log: {
-        level: 'silent'
+        // level: 'silent'
       },
       hooks: {
         grunt: false
       },
-      models: {
-        connection: 'unitTestConnection',
-        migrate: 'drop'
-      },
-      connections: {
-        unitTestConnection: {
-          adapter: 'sails-disk'
-        }
-      }
+      // models: {
+      //   datastore: 'unitTestConnection',
+      //   migrate: 'drop'
+      // },
+      // datastores: {
+      //   unitTestConnection: {
+      //     adapter: 'sails-disk'
+      //   }
+      // }
     },
     function(err, server) {
-      if (err) returndone(err);
+      if (err) return done(err);
       // here you can load fixtures, etc.
-      done(err, sails);
+      return done(err, sails);
     }
   );
 });
