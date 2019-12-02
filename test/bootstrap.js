@@ -1,4 +1,4 @@
-var sails = require('sails');
+var Sails = require('sails');
 var _ = require('lodash');
 
 global.chai = require('chai');
@@ -8,7 +8,7 @@ before(function(done) {
   // Increase the Mocha timeout so that Sails has enough time to lift.
   this.timeout(5000);
 
-  sails.lift(
+  Sails.lift(
     {
       log: {
         // level: 'silent'

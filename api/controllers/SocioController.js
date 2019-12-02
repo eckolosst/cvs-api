@@ -12,11 +12,9 @@ module.exports = {
 
   create: async (req, res) => {
     let dataSocio = req.body;
-    sails.log.info(req.body.nombre);
     try {
-      const period = await Periodo.create({ fechaInicio: new Date() }).fetch();
-      dataSocio.periodoAfiliacion = period.id;
       let newSocio = await Socio.create(dataSocio).fetch();
+      const period = await Periodo.create({ fechaInicio: new Date(), socio: newSocio.id }).fetch();
       return res.ok(newSocio);
     } catch (err) {
       return res.serverError(err);

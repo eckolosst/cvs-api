@@ -29,7 +29,7 @@ module.exports = {
         auxDate.setMonth(auxDate.getMonth() - 12);
         const periodos = await Periodo.find({ socio: idSocio });
         // Verifico si el último periodo de afiliación tiene fecha de inicio de hace más de un añó
-        if (periodos[periodos.length - 1].fechaInicio >= auxDate) {
+        if (periodos[periodos.length - 1].fechaInicio <= auxDate) {
           // Busco solicitudes o beneficios pendientes del socio
           let query = `SELECT t.id, p.id
                         FROM solicitudterreno as t JOIN solicitudprestamo as p
