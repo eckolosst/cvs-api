@@ -1,3 +1,4 @@
+/* eslint-disable handle-callback-err */
 var supertest = require('supertest');
 
 require('../../bootstrap');
@@ -47,7 +48,7 @@ describe('SolicitudPrestamoController', () => {
           .post('/solicitudPrestamo')
           .set('Accept', 'application/json')
           .send({
-            fechaPeticion: '2019-11-19T15:49:41.684Z',
+            fechaPeticion: '2019-11-19',
             resultado: 'pendiente',
             socio: socio.id,
             monto: 14000,
@@ -55,7 +56,7 @@ describe('SolicitudPrestamoController', () => {
               dni: 24123345,
               apellido: 'Garante',
               nombre: 'Nuevo',
-              fechaNacimiento: '1974-07-11T03:00:00.000Z',
+              fechaNacimiento: '1974-07-11',
               domicilio: 'JM alvarez 123',
               email: 'test@garante.com',
               telefono: 498123876

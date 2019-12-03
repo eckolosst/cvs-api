@@ -21,7 +21,7 @@ module.exports = {
         where: { sueldoNetoMinimo: { '<=': reciboSocio.sueldoNeto } },
         sort: 'valorMaximoPrestamo DESC'
       });
-      const lot = await loteo.findOne({id: loteo});
+      const lot = await Loteo.findOne({id: loteo});
         let auxDate = new Date();
         auxDate.setMonth(auxDate.getMonth() - 12);
         const periodos = await Periodo.find({ socio: idSocio });

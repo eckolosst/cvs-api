@@ -190,7 +190,7 @@ describe('SolicitudTerrenoController', () => {
         }
       })
       .expect('Content-Type', /text\/html/)
-      .expect(400)
+      .expect(404)
       .end((err, result) => {
         if (err) {
           done(err);
@@ -229,8 +229,8 @@ describe('SolicitudTerrenoController', () => {
               cuil: '123456'
             }
           })
-          .expect('Content-Type', /text\/html/)
-          // .expect('Content-Type', /json/)
+          // .expect('Content-Type', /text\/html/)
+          .expect('Content-Type', /json/)
           .expect(400)
           .end((err, result) => {
             if (err) {
@@ -343,8 +343,8 @@ describe('SolicitudTerrenoController', () => {
                   cuil: '123456'
                 }
               })
-              // .expect('Content-Type', /text\/html/)
-              .expect('Content-Type', /json/)
+              .expect('Content-Type', /text\/html/)
+              // .expect('Content-Type', /json/)
               .expect(400)
               .end((err, result2) => {
                 result2.body.should.be.an('object');
@@ -397,8 +397,8 @@ describe('SolicitudTerrenoController', () => {
               cuil: '123456'
             }
           })
-          .expect('Content-Type', /text\/html/)
-          // .expect('Content-Type', /json/)
+          // .expect('Content-Type', /text\/html/)
+          .expect('Content-Type', /json/)
           .expect(400)
           .end((err, result) => {
             if (err) {
@@ -440,8 +440,8 @@ describe('SolicitudTerrenoController', () => {
               cuil: '123456'
             }
           })
-          .expect('Content-Type', /text\/html/)
-          // .expect('Content-Type', /json/)
+          // .expect('Content-Type', /text\/html/)
+          .expect('Content-Type', /json/)
           .expect(400)
           .end((err, result) => {
             if (err) {
@@ -483,8 +483,8 @@ describe('SolicitudTerrenoController', () => {
               cuil: '123456'
             }
           })
-          .expect('Content-Type', /text\/html/)
-          // .expect('Content-Type', /json/)
+          // .expect('Content-Type', /text\/html/)
+          .expect('Content-Type', /json/)
           .expect(400)
           .end((err, result) => {
             if (err) {
@@ -526,8 +526,8 @@ describe('SolicitudTerrenoController', () => {
               cuil: '123456'
             }
           })
-          .expect('Content-Type', /text\/html/)
-          // .expect('Content-Type', /json/)
+          // .expect('Content-Type', /text\/html/)
+          .expect('Content-Type', /json/)
           .expect(400)
           .end((err, result) => {
             if (err) {
